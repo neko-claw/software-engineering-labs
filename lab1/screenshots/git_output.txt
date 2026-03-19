@@ -1,0 +1,8 @@
+$ git status -sb
+## main...origin/main
+?? lab1/screenshots/
+
+$ git log --oneline -3
+4c0d234 reformat lab1 docx to match template structure
+d76fca7 add lab1 report docx export
+10bfa05 add lab1 report and artifacts

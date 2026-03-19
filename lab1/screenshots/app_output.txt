@@ -1,0 +1,67 @@
+Graph loaded successfully.
+Words: 10
+Edges: 12
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: Directed graph image saved to: out/directed-graph.png
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: Enter word1: Enter word2: No bridge words from "to" to "new"!
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: Enter new text: to seek out new worlds
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: Enter word1: Enter word2: Shortest path from "to" to "civilizations": to -> explore -> strange -> new -> civilizations (length: 4)
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: Enter word: PageRank(new) = 0.2405888935099065
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: new civilizations
+Saved to out/random-walk.txt
+
+1. Show directed graph
+2. Query bridge words
+3. Generate new text
+4. Calculate shortest path
+5. Calculate PageRank
+6. Random walk
+0. Exit
+Choose an option: 
