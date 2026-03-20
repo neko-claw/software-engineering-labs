@@ -314,21 +314,21 @@ Passed 13 tests.
 可见当前仓库版本已经通过全部已有测试。
 
 ### 5.3 读取文本文件并展示有向图
-#### 输入文本
+#### 文本文件中包含的内容
 ```text
 To @ explore strange new worlds,
 To seek out new life and new civilizations
 ```
 
-#### 期望结果
-- 程序成功读取文本并建图；
-- 结点数为 10；
-- 边数为 12；
-- 输出图像文件 `out/directed-graph.png`；
-- 保留跨行相邻关系 `worlds -> to`。
+#### 期望生成的图（手工分析）
+应包含 10 个结点：
+`to, explore, strange, new, worlds, seek, out, life, and, civilizations`
 
-#### 实际结果
-我重新运行当前仓库主程序后，得到：
+应包含 12 条有向边：
+`to->explore, explore->strange, strange->new, new->worlds, worlds->to, to->seek, seek->out, out->new, new->life, life->and, and->new, new->civilizations`
+
+#### 程序实际生成结果
+实际运行输出：
 
 ```text
 Graph loaded successfully.
@@ -337,63 +337,83 @@ Edges: 12
 Directed graph image saved to: out/directed-graph.png
 ```
 
-#### 结论
-运行结果与预期一致，说明文本读取、规整化、建图和渲染功能均正确。
+#### 二者是否一致
+一致。
+
+#### 截图与证据
+- 旧版程序运行截图：`screenshots/screenshot_graph_text.png`
+- 本次重新运行输出文本：`screenshots/app_output_latest.txt`
+- 本次重新导出的图像文件：`artifacts/directed-graph-latest.png`
+- 仓库中的图像输出：`out/directed-graph.png`
 
 ### 5.4 查询桥接词
-| 序号 | 输入 | 期望输出 | 实际输出 | 是否正确 |
+| 序号 | 输入（2个单词） | 期望输出 | 实际输出 | 运行是否正确 |
 |---|---|---|---|---|
 | 1 | explore, new | The bridge words from "explore" to "new" is: "strange". | The bridge words from "explore" to "new" is: "strange". | 正确 |
 | 2 | to, explore | No bridge words from "to" to "explore"! | No bridge words from "to" to "explore"! | 正确 |
 | 3 | exciting, new | No "exciting" in the graph! | No "exciting" in the graph! | 正确 |
 | 4 | new, and | The bridge words from "new" to "and" is: "life". | The bridge words from "new" to "and" is: "life". | 正确 |
 
-说明：第 1—3 条来自 `BridgeWordServiceTest`，第 4 条来自 `BridgeIntegrationTest`。
+说明：前 3 条来自仓库测试 `BridgeWordServiceTest`，第 4 条来自 `BridgeIntegrationTest`。
+
+#### 截图与证据
+- 旧版桥接词截图：`screenshots/screenshot_bridge.png`
+- 本次重新运行输出文本：`screenshots/app_output_latest.txt`
 
 ### 5.5 根据桥接词生成新文本
-| 序号 | 输入 | 期望输出 | 实际输出 | 是否正确 |
+| 序号 | 输入（一行文本） | 期望输出 | 实际输出 | 运行是否正确 |
 |---|---|---|---|---|
 | 1 | Seek to explore new and exciting synergies | seek to explore strange new life and exciting synergies | seek to explore strange new life and exciting synergies | 正确 |
 | 2 | Hello world | hello world | hello world | 正确 |
 
-说明：
-- 第 1 条来自 `NewTextGeneratorTest` 和当前主程序真实运行；
-- 第 2 条体现了无桥接词时仅做单词提取和小写规整化。
+说明：第 1 条来自仓库测试 `NewTextGeneratorTest` 和本次主程序真实运行；第 2 条用于说明无桥接词时仅做规整化输出。
+
+#### 截图与证据
+- 旧版新文本截图：`screenshots/screenshot_new_text.png`
+- 本次重新运行输出文本：`screenshots/app_output_latest.txt`
 
 ### 5.6 计算最短路径
-| 序号 | 输入 | 期望输出 | 实际输出 | 是否正确 |
+| 序号 | 输入 | 期望输出 | 实际输出 | 运行是否正确 |
 |---|---|---|---|---|
 | 1 | to, and | 两条长度为 5 的最短路径之一 | 测试允许任一合法最短路径 | 正确 |
 | 2 | civilizations, to | No path from "civilizations" to "to". | No path from "civilizations" to "to". | 正确 |
-| 3 | to, civilizations | Shortest path from "to" to "civilizations": ... (length: 4) | Shortest path from "to" to "civilizations": to -> explore -> strange -> new -> civilizations (length: 4) | 正确 |
+| 3 | to, civilizations | Shortest path from "to" to "civilizations": to -> explore -> strange -> new -> civilizations (length: 4) 或另一条等长路径 | Shortest path from "to" to "civilizations": to -> explore -> strange -> new -> civilizations (length: 4) | 正确 |
 
-说明：
-- 第 1 条来自 `ShortestPathServiceTest` 与 `ShortestPathIntegrationTest`；
-- 第 2 条来自 `ShortestPathServiceTest`；
-- 第 3 条来自我对当前程序的真实运行。
+说明：第 1 条来自 `ShortestPathServiceTest` 和 `ShortestPathIntegrationTest`，第 2 条来自 `ShortestPathServiceTest`，第 3 条来自本次主程序真实运行。
+
+#### 截图与证据
+- 旧版最短路径截图：`screenshots/screenshot_shortest_path.png`
+- 本次重新运行输出文本：`screenshots/app_output_latest.txt`
 
 ### 5.7 计算 PageRank
-| 序号 | 输入 | 期望输出 | 实际输出 | 是否正确 |
+| 序号 | 单词 | 期望输出 | 实际输出 | 运行是否正确 |
 |---|---|---|---|---|
 | 1 | new | 接近 0.24 | 0.2405888935099065 | 正确 |
 | 2 | missing | 不存在提示或返回空值 | service 层返回 `null`，应用层输出 `Word not found in graph.` | 正确 |
 | 3 | sink node 情况 | 总分保持归一化 | 测试验证通过 | 正确 |
 
-说明：PageRank 部分不仅验证了普通结点分值，也验证了无出边结点场景下算法的正确性。
+说明：第 1 条来自本次真实运行与 `PageRankServiceTest` / `PageRankIntegrationTest`，第 3 条说明仓库中已验证无出边结点情况。
+
+#### 截图与证据
+- 旧版 PageRank 截图：`screenshots/screenshot_pagerank.png`
+- 本次重新运行输出文本：`screenshots/app_output_latest.txt`
 
 ### 5.8 随机游走
-随机游走具有随机性，因此测试重点是“停止条件是否正确”和“是否写入文件”。
+由于随机游走本身具有随机性，因此只要满足停止规则并能够写入文件，即可认为实现正确。
 
-| 序号 | 实际输出 | 是否正确 |
+| 序号 | 实际输出 | 程序运行是否正确 |
 |---|---|---|
-| 1 | worlds to seek out new civilizations | 正确 |
+| 1 | seek out new worlds to seek | 正确 |
 | 2 | alpha beta gamma beta | 正确 |
 | 3 | a b c a | 正确 |
 
-说明：
-- 第 1 条来自我对当前程序的真实运行；
-- 第 2、3 条来自 `RandomWalkServiceTest`；
-- `RandomWalkIntegrationTest` 还验证了结果会同步写入文件。
+说明：第 1 条来自我本次重新运行程序得到的真实结果，已保存到 `artifacts/random-walk-latest.txt`；第 2、3 条来自 `RandomWalkServiceTest`。
+
+#### 截图与证据
+- 旧版随机游走截图：`screenshots/screenshot_random_walk.png`
+- 本次重新运行输出文本：`screenshots/app_output_latest.txt`
+- 本次随机游走结果文件：`artifacts/random-walk-latest.txt`
+- 仓库中的随机游走结果：`out/random-walk.txt`
 
 ---
 
@@ -522,6 +542,23 @@ Directed graph image saved to: out/directed-graph.png
 - 推送到远程仓库。
 
 虽然仓库中的主要证据以命令行日志和截图为主，但与 IDEA 工程结构结合后，可以证明该项目具备在 IDE 中使用 Git 的条件。
+
+### 8.5 Git 部分截图与证据汇总
+为了与实验模板保持一致，Git 部分可直接引用以下截图与证据文件：
+
+- 仓库创建与首次提交：`screenshots/03_r2_first_commit.png`
+- 第一次修改后 diff：`screenshots/04_r3_diff_after_first_edit.png`
+- 撤销最后一次提交：`screenshots/07_r6_undo_last_commit.png`
+- 配置远程仓库：`screenshots/10_r8_remote_setup.png`
+- 推送 master 分支：`screenshots/11_r9_push_master.png`
+- 合并 C4 到 B1：`screenshots/17_r6_merge_c4_into_b1.png`
+- 分支合并状态：`screenshots/19_r8_branch_merge_status.png`
+- 推送学号分支：`screenshots/21_r10_push_student_branch.png`
+- 版本树截图：`screenshots/22_r11_version_tree.png`
+- GitHub 页面截图：`screenshots/github-2023112455.png`
+- Git 操作文字记录：`screenshots/git_evidence_record.md`
+
+这些材料都来自你仓库中已经保存的 `out/git-evidence` 目录，我已同步复制到本报告目录下，便于后续直接插入 Word。
 
 ---
 

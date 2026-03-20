@@ -1,0 +1,14 @@
+[PASS] TextNormalizerTest
+[PASS] GraphBuilderTest
+[PASS] GraphRendererTest
+[PASS] Stage1IntegrationTest
+[PASS] BridgeWordServiceTest
+[PASS] NewTextGeneratorTest
+[PASS] BridgeIntegrationTest
+[PASS] ShortestPathServiceTest
+[PASS] ShortestPathIntegrationTest
+[PASS] PageRankServiceTest
+[PASS] PageRankIntegrationTest
+[PASS] RandomWalkServiceTest
+[PASS] RandomWalkIntegrationTest
+Passed 13 tests.
